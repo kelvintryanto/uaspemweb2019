@@ -47,6 +47,19 @@
 
 <!-- Custom scripts for all pages-->
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
+<script>
+    var FileAPI = {
+        debug: true,
+        media: true,
+        staticPath: './FileAPI/'
+    };
+</script>
+<script src="<?= base_url('assets/vendor/crop-userpic/'); ?>FileAPI/FileAPI.min.js"></script>
+<script src="<?= base_url('assets/vendor/crop-userpic/'); ?>FileAPI/FileAPI.exif.js"></script>
+<script src="<?= base_url('assets/vendor/crop-userpic/'); ?>jquery.fileapi.js"></script>
+<script src="<?= base_url('assets/vendor/crop-userpic/'); ?>jcrop/jquery.Jcrop.min.js"></script>
+<script src="<?= base_url('assets/vendor/crop-userpic/'); ?>statics/jquery.modal.js"></script>
+<script src="<?= base_url('assets/vendor/crop-userpic/'); ?>script.js"></script>
 
 <script>
     // untuk file upload edit profile

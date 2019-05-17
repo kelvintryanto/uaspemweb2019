@@ -11,6 +11,21 @@ class Shop extends CI_Controller
         is_logged_in();
     }
 
+    //shop default
+    public function index()
+    {
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['title'] = 'bajuUnik.com | Shop';
+
+        $data['item'] = $this->db->get('item')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('shop/index', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function wishlist()
     {
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();

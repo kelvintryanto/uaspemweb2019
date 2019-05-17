@@ -71,20 +71,20 @@ class Admin extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $username = $this->session->userdata('username');
-
-            //upload image to folder
             $upload_image = $_FILES['image']['name'];
+            var_dump($username);
 
             if ($upload_image) {
-                $config['allowed_types'] = 'gif|jpg|png';
-                $config['max_size']     = '2048'; //dalam ukuran kb
                 $config['upload_path'] = './assets/img/item/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['max_size']     = '2048'; //dalam ukuran kb
 
                 $this->load->library('upload', $config);
-                if ($this->upload->do_upload('image')) {
-                    $this->upload->data('file_name');
-                } else {
+
+                if (!$this->upload->do_upload('image')) {
                     echo $this->upload->display_errors();
+                } else {
+                    $data = $this->upload->data('file_name');
                 }
             }
 
@@ -103,7 +103,7 @@ class Admin extends CI_Controller
         }
     }
 
-    public function addNewItem()
+    public function uploadProcess()
     { }
 
     public function role()

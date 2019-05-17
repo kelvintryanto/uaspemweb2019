@@ -17,6 +17,11 @@
 
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets/'); ?>css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="<?= base_url('assets/'); ?>css/croppie.css" rel="stylesheet">
+    <link href="<?= base_url('assets/'); ?>css/style.css" rel="stylesheet">
+
+    <link href="<?= base_url('assets/vendor/crop-userpic/'); ?>style.css" rel="stylesheet" />
+    <link href="<?= base_url('assets/vendor/crop-userpic/'); ?>jcrop/jquery.Jcrop.min.css" rel="stylesheet" type="text/css" />
 
 </head>
 

@@ -11,6 +11,7 @@
 
             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newRoleModal">Add New Role</a>
 
+            <h3>edit dan delete belum ada handlenya</h3>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -26,9 +27,9 @@
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $dataRole['role']; ?></td>
                             <td>
-                                <a href="<?= base_url('admin/roleAccess/') . $dataRole['id']; ?>" style="font-size: 1.2em; color: green;"><i class="fab fa-accessible-icon"></i></i></a>
-                                <a href="" data-toggle="modal" data-target="#editMenu" style="font-size: 1.2em; color: orange;"><i class="fas fa-edit"></i></a>
-                                <a href="" data-toggle="modal" data-target="#deleteMenu" style="font-size: 1.2em; color: red;"><i class="fas fa-trash"></i></a>
+                                <a title="Managing Access to this role" href="<?= base_url('admin/roleAccess/') . $dataRole['id']; ?>" style="font-size: 1.2em; color: green;"><i class="fab fa-accessible-icon"></i></i></a>
+                                <a title="Rename this role, better don't do it..LoL" href="" data-toggle="modal" data-target="#editMenu" style="font-size: 1.2em; color: orange;"><i class="fas fa-edit"></i></a>
+                                <a title="Delete this Role, do you really hate her/him?" href="" data-toggle="modal" data-target="#deleteMenu" style="font-size: 1.2em; color: red;"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                         <?php $i++; ?>

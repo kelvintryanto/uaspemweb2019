@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Userpic + Crop</title>
+    <link href="style.css" rel="stylesheet"/>
+	<link href="jcrop/jquery.Jcrop.min.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    
+    <div class="container">
+        <div id="userpic" class="userpic">
+           <div class="js-preview userpic__preview"></div>
+           <div class="btn btn-success js-fileapi-wrapper">
+              <div class="js-browse">
+                 <span class="btn-txt">Choose</span>
+                 <input type="file" name="filedata">
+              </div>
+              <div class="js-upload" style="display: none;">
+                 <div class="progress progress-success"><div class="js-progress bar"></div></div>
+                 <span class="btn-txt">Uploading</span>
+              </div>
+           </div>
+        </div>
+    </div>
+    
+	<div id="popup" class="popup" style="display: none;">
+		<div class="popup__body"><div class="js-img"></div></div>
+		<div style="margin: 0 0 5px; text-align: center;">
+			<div class="js-upload btn btn_browse btn_browse_small">Upload</div>
+		</div>
+	</div>
+
+    <script src="jquery.min.js"></script>
+	<script src="jquery.easing.min.js"></script>
+    <script>
+    var FileAPI = {
+        debug: true, 
+        media: true, 
+        staticPath: './FileAPI/'
+    };
+    </script>
+	<script src="FileAPI/FileAPI.min.js"></script>
+	<script src="FileAPI/FileAPI.exif.js"></script>
+	<script src="jquery.fileapi.js"></script>
+	<script src="jcrop/jquery.Jcrop.min.js"></script>
+	<script src="statics/jquery.modal.js"></script>
+	<script src="script.js"></script>
+</body>
+</html>
