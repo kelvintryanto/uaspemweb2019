@@ -3,10 +3,11 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Shop Page</h1>
+    	
 
     <div class="row">
         <?php foreach ($item as $i) : ?>
-            <div class="col-2">
+            <div class="col-sm-2">
                 <div class="card">
                     <img src="<?= base_url('assets/img/item/') . $i['image']; ?>" class="card-img-top">
                     <div class="card-body">

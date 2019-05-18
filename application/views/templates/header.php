@@ -23,6 +23,21 @@
     <link href="<?= base_url('assets/vendor/crop-userpic/'); ?>style.css" rel="stylesheet" />
     <link href="<?= base_url('assets/vendor/crop-userpic/'); ?>jcrop/jquery.Jcrop.min.css" rel="stylesheet" type="text/css" />
 
+    <!-- Bootstrap core CSS -->
+  <link href="<?= base_url('assets/vendor/bootstrap/'); ?>css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+
+
+  <link rel="stylesheet" href="<?= base_url('assets/vendor/simple-line-icons/'); ?>css/simple-line-icons.css">
+
+  <!-- Plugin CSS -->
+  <link rel="stylesheet" href="<?= base_url('assets/device-mockups/'); ?>device-mockups.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="<?= base_url('assets/css/'); ?>new-age.min.css" rel="stylesheet">
+
+
 </head>
 
 <body id="page-top">
