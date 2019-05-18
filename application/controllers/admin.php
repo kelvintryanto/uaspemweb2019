@@ -72,7 +72,6 @@ class Admin extends CI_Controller
         } else {
             $username = $this->session->userdata('username');
             $upload_image = $_FILES['image']['name'];
-            var_dump($username);
 
             if ($upload_image) {
                 $config['upload_path'] = './assets/img/item/';
@@ -81,10 +80,11 @@ class Admin extends CI_Controller
 
                 $this->load->library('upload', $config);
 
-                if (!$this->upload->do_upload('image')) {
-                    echo $this->upload->display_errors();
+                if ($this->upload->do_upload('image')) {
+                    //untuk upload ke folder upload_path
+                    $this->upload->data('file_name');
                 } else {
-                    $data = $this->upload->data('file_name');
+                    echo $this->upload->display_errors();
                 }
             }
 

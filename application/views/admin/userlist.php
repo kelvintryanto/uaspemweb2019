@@ -9,9 +9,10 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">username</th>
-                        <th scope="col" style="text-align:center;">member since</th>
-                        <th scope="col" style="text-align:center;">active</th>
+                        <th scope="col">Username</th>
+                        <th scope="col" style="text-align:center;">Member Since</th>
+                        <th scope="col" style="text-align:center;">Activated Email</th>
+                        <th scope="col" style="text-align:center;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,7 +31,10 @@
                                 }
                                 ?>
                             </td>
-
+                            <td style="text-align: center;">
+                                <a href="" data-toggle="modal" data-target="#editMenu" style="font-size: 1.2em; color: orange;"><i class="fas fa-edit"></i></a>
+                                <a href="" data-toggle="modal" data-target="#deleteMenu" style="font-size: 1.2em; color: red;"><i class="fas fa-trash"></i></a>
+                            </td>
                         </tr>
                         <?php $i++; ?>
                     <?php endforeach ?>

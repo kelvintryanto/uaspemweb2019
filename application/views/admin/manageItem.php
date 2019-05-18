@@ -64,20 +64,10 @@
                 <div class="form-group">
                     <textarea class="form-control" id="description" name="description" rows="3" placeholder="Description"></textarea>
                 </div>
-                <div id="userpic" class="userpic">
-                    <div class="js-preview userpic__preview"></div>
-                    <div class="btn btn-success js-fileapi-wrapper">
-                        <div class="js-browse">
-                            <!-- <span class="btn-txt">Choose</span> -->
-                            <input type="file" class="custom-file-input" name="image" id="image">
-                            <label class="custom-file-label btn-txt" for="image">Choose</label>
-                        </div>
-                        <div class="js-upload" style="display: none;">
-                            <div class="progress progress-success">
-                                <div class="js-progress bar"></div>
-                            </div>
-                            <span class="btn-txt">Uploading</span>
-                        </div>
+                <div class="form-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image" name="image">
+                        <label class="custom-file-label" for="image">Choose file</label>
                     </div>
                 </div>
             </div>
@@ -91,12 +81,3 @@
     </div>
 </div>
 <!-- End of Modal -->
-
-<div id="popup" class="popup" style="display: none;">
-    <div class="popup__body">
-        <div class="js-img"></div>
-    </div>
-    <div style="margin: 0 0 5px; text-align: center;">
-        <div class="js-upload btn btn_browse btn_browse_small">Upload</div>
-    </div>
-</div>
