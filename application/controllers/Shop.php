@@ -54,16 +54,25 @@ class Shop extends CI_Controller
     {
         $item = $this->db->get_where('item', ['id' => $id])->row_array();
         $username = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $this->session->set_flashdata('message', '<div class="alert alert-success" style="text-align: center" role="alert">Menu Edited!</div>');
-        $data = [
-            'username_id' => $username['id'],
-            'item_id' => $item['id'],
-            'is_payment' => 0,
-            'date_created' => time()
-        ];
 
-        $this->db->insert('item_cart', $data);
-        redirect('shop');
+        $this->form_validation->set_rules('amount', 'required');
+        if ($_POST['amount'] > 0) {
+            $this->form_validation->set_rules('amount', "required");
+            $data = [
+                'username_id' => $username['id'],
+                'item_id' => $item['id'],
+                'is_payment' => 0,
+                'amount' => $_POST['amount'],
+                'date_created' => time()
+            ];
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New Item Added to Cart!</div>');
+            $this->db->insert('item_cart', $data);
+            redirect('shop');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Amount Required!</div>');
+            redirect('shop');
+        }
     }
 
 
