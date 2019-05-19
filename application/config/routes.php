@@ -61,6 +61,7 @@ $route['admin'] = 'admin/index';
 $route['menu'] = 'menu/index';
 $route['auth'] = 'auth/login';
 $route['shop'] = 'shop/index';
+$route['about'] = 'about/index';
 
 
 $route['default_controller'] = 'pages/view';

@@ -66,6 +66,11 @@
   <!-- End of Query Menu -->
 
   <li class="nav-item">
+    <a class="nav-link pt-0" href="<?= base_url('about') ?>">
+      <i class="fas fa-address-card"></i>
+      <span>About</span></a>
+  </li>
+  <li class="nav-item">
     <a class="nav-link pt-0" data-toggle="modal" data-target="#logoutModal" href="<?= base_url('auth/logout') ?>">
       <i class="fas fa-fw fa-sign-out-alt"></i>
       <span>Log Out</span></a>

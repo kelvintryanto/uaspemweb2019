@@ -23,6 +23,13 @@
     <link href="<?= base_url('assets/vendor/crop-userpic/'); ?>style.css" rel="stylesheet" />
     <link href="<?= base_url('assets/vendor/crop-userpic/'); ?>jcrop/jquery.Jcrop.min.css" rel="stylesheet" type="text/css" />
 
+    <!-- Bootstrap core CSS -->
+  <link href="<?= base_url('assets/vendor/bootstrap/'); ?>css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+
+
+
 </head>
 
 <body id="page-top">

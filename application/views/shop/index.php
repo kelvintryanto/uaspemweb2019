@@ -6,6 +6,7 @@
 
     <div class="row">
         <?php foreach ($item as $i) : ?>
+
             <div class="col-sm-2">
                 <div class="card mb-3">
                     <img src="<?= base_url('assets/img/item/') . $i['image']; ?>" class="card-img-top">
@@ -14,11 +15,14 @@
                         <p class="card-text mb-0"><?= $i['price']; ?></p>
                         <p class="card-text mb-0">Stock : <?= $i['stock']; ?></p>
                     </div>
-                    <div class="col-12 pb-3 justify-content-end">
-                        <button class="btn btn-primary col-12" style="font-size: .75rem"><i class="fas fa-shopping-cart"></i> Buy</button>
-                    </div>
+                    <form action="<?= 'shop/buy/' . $i['id']; ?>" method="post">
+                        <div class="col-12 pb-3 justify-content-end">
+                            <button class="btn btn-primary col-12" style="font-size: .75rem"><i class="fas fa-shopping-cart"></i> Buy</button>
+                        </div>
+                    </form>
                 </div>
             </div>
+
         <?php endforeach ?>
     </div>
 
