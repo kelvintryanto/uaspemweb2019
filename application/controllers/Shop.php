@@ -26,6 +26,7 @@ class Shop extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+
     public function wishlist()
     {
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
@@ -86,10 +87,5 @@ class Shop extends CI_Controller
     }
 
 
-    public function delete($id)
-    {
-        $this->db->delete('user_menu', array('id' => $id));
-        $this->session->set_flashdata('message', '<div class="alert alert-success" style="text-align: center" role="alert">Menu Deleted!</div>');
-        redirect('menu');
-    }
+    
 }
