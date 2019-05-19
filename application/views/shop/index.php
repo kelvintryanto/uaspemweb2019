@@ -12,7 +12,6 @@
         <?= $this->session->flashdata('message') ?>
     </div>
 
-
     <div class="row">
         <?php foreach ($item as $i) : ?>
             <div class="col-sm-2">

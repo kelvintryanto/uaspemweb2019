@@ -57,18 +57,28 @@ class Shop extends CI_Controller
 
         $this->form_validation->set_rules('amount', 'required');
         if ($_POST['amount'] > 0) {
-            $this->form_validation->set_rules('amount', "required");
-            $data = [
-                'username_id' => $username['id'],
-                'item_id' => $item['id'],
-                'is_payment' => 0,
-                'amount' => $_POST['amount'],
-                'date_created' => time()
-            ];
+            $cart_item = $this->session->userdata('cart_item');
+            if (count($cart_item) > 0) {
+                $cart_length = count($cart_item) + 1;
+                $data = [
+                    $cart_length => array(
+                        'username_id' => $username['id'],
+                        'item_id' => $item['id'],
+                        'is_payment' => 0,
+                        'amount' => $_POST['amount'],
+                        'date_created' => time()
+                    )
+                ];
+                $cart_itemfull = $this->session->userdata('cart_item');
+                var_dump($cart_itemfull);
+                die;
+            }
+
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New Item Added to Cart!</div>');
-            $this->db->insert('item_cart', $data);
-            redirect('shop');
+            $this->session->set_userdata('cart_item', $data);
+
+            // redirect('shop');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Amount Required!</div>');
             redirect('shop');
