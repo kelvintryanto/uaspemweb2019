@@ -103,6 +103,28 @@ class Admin extends CI_Controller
         }
     }
 
+
+    public function delete($id)
+    {
+        $this->db->delete('item', array('id' => $id));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" style="text-align: center" role="alert">Item Deleted!</div>');
+        redirect('admin/manageitem');
+    }
+
+    public function update($id)
+    {
+        $data = [
+                'name' => $this->input->post('name'),
+                'stock' => $this->input->post('stock'),
+                'price' => $this->input->post('price'),
+                'description' => $this->input->post('description')
+        ];
+
+        $this->db->update('item', $data, array('id' => $id));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" style="text-align: center" role="alert">Item Edited!</div>');
+        redirect('admin/manageitem');
+    }
+
     public function uploadProcess()
     { }
 

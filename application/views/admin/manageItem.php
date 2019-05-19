@@ -44,8 +44,8 @@
                     <td><?= $item['stock']; ?></td>
                     <td><?= $item['username']; ?></td>
                     <td>
-                        <a href="" style="font-size: 1.2em; color: orange;"><i class="fas fa-edit"></i></a>
-                        <a href="" style="font-size: 1.2em; color: red;"><i class="fas fa-trash"></i></a>
+                        <a href="" data-toggle="modal" data-target="#editMenu" style="font-size: 1.2em; color: orange;"><i class="fas fa-edit"></i></a>
+                        <a href="" data-toggle="modal" data-target="#deleteMenu" style="font-size: 1.2em; color: red;"><i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
                 <?php $i++; ?>
@@ -70,7 +70,58 @@
 </div>
 <!-- End of Main Content -->
 
-<!-- Modal -->
+<!-- Modal Delete Item -->
+<div class="modal fade" id="deleteMenu" tabindex="-1" role="dialog" aria-labelledby="deleteMenu" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMenu">Delete Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure want to delete item?</p>
+            </div>
+            <form action="<?= 'delete/' . $item['id']; ?>" method="post">
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" autofocus>Yes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Menu -->
+<div class="modal fade" id="editMenu" tabindex="-1" role="dialog" aria-labelledby="editMenu" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editMenu">Edit Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= 'update/' . $item['id']; ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Type New Name...">
+                        <input type="text" class="form-control" id="price" name="price" placeholder="Type New Price...">
+                        <input type="text" class="form-control" id="stock" name="stock" placeholder="Type New Stock...">
+                        <input type="text" class="form-control" id="description" name="description" placeholder="Type New Description...">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal add item -->
 <div class="modal fade" id="addNewItem" tabindex="-1" role="dialog" aria-labelledby="addNewItem" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -112,4 +163,6 @@
         </div>
     </div>
 </div>
+
+
 <!-- End of Modal -->
