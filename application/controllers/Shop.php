@@ -26,16 +26,15 @@ class Shop extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-
-    public function wishlist()
+    public function payment()
     {
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        $data['title'] = 'bajuUnik.com | Wish List';
-
+        $data['title'] = 'bajuUnik.com | Payment';
+        
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('shop/wishlist', $data);
+        $this->load->view('shop/payment', $data);
         $this->load->view('templates/footer');
     }
 

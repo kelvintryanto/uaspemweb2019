@@ -12,13 +12,14 @@
                         <th>Product</th>
                         <th>Quantity</th>
                         <th class="text-center">Price</th>
-                        <th class="text-center">Total</th>
+                        <th class="text-center">Subtotal</th>
                         <th> </th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     $cart_check = $this->cart->contents();
+                    $total_price = $this->cart->total();
                     foreach ($cart_check as $cart) {
                         ?>
                         <tr>
@@ -32,16 +33,39 @@
                                 </div>
                             </td>
                             <td class="col-sm-1" style="text-align: center">
-                                <input type="email" class="form-control" id="exampleInputEmail1" value="3">
+                                <input type="number" class="form-control" id="amount" name="amount" min="1" max="<?= $cart['stock']; ?>" value="<?= $cart['qty']; ?>">
                             </td>
                             <td class="col-sm-2"><strong><?= "Rp " . number_format($cart['price'], 0, ',', '.'); ?></strong></td>
-                            <td class="col-sm-1 text-center"><strong></strong></td>
+                            <td class="col-sm-1 text-center"><strong><?= $cart['price'] * $cart['qty']; ?></strong></td>
                             <td class="col-sm-1">
-                                <button type="button" class="btn btn-danger">
-                                    <span class="glyphicon glyphicon-remove"></span> Remove
-                                </button>
+                                <a href="#deleteCart<?php echo $cart['id']; ?>" data-toggle="modal" style="font-size: 1.2em; color: red;">
+                                    <i class="fas fa-trash"></i>
+                                </a>
                             </td>
                         </tr>
+
+                        <!-- Modal Delete Cart -->
+                        <div class="modal fade" id="deleteCart<?php echo $cart['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteCart" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteCart<?php echo $cart['id']; ?>">Delete Item</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure want to delete <?= $cart['name']; ?>?</p>
+                                    </div>
+                                    <form action="<?= 'deleteCart/' . $cart['id']; ?>" method="post">
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-danger" autofocus>Yes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     <?php } ?>
                     <?php if ($cart_check) { ?>
                         <tr>
@@ -49,10 +73,10 @@
                             <td>   </td>
                             <td>   </td>
                             <td>
-                                <h5>Subtotal</h5>
+                                <h5>Estimated Total</h5>
                             </td>
                             <td class="text-right">
-                                <h5><strong>$24.59</strong></h5>
+                                <h5><strong><?= "Rp " . number_format($this->cart->total(), 0, ',', '.'); ?></strong></h5>
                             </td>
                         </tr>
                         <tr>
@@ -63,7 +87,7 @@
                                 <h5>Estimated Shipping</h5>
                             </td>
                             <td class="text-right">
-                                <h5><strong>$6.94</strong></h5>
+                                <h5><strong><?= "Rp " . number_format(9000, 0, ',', '.'); ?></strong></h5>
                             </td>
                         </tr>
                         <tr>
@@ -74,7 +98,13 @@
                                 <h3>Total</h3>
                             </td>
                             <td class="text-right">
-                                <h3><strong>$31.53</strong></h3>
+                                <h3>
+                                    <strong>
+                                        <?php $total = $this->cart->total() + 9000;
+                                        echo "Rp " . number_format($total, 0, ',', '.');
+                                        ?>
+                                    </strong>
+                                </h3>
                             </td>
                         </tr>
                         <tr>
@@ -82,13 +112,15 @@
                             <td>   </td>
                             <td>   </td>
                             <td>
-                                <button type="button" class="btn btn-primary">
-                                    <span></span> Continue Shopping
-                                </button></td>
+                                <a type="button" class="btn btn-primary" href="<?= base_url('shop') ?>">
+                                    Continue Shopping
+                                </a>
+                            </td>
                             <td>
-                                <button type="button" class="btn btn-success">
+                                <a type="button" class="btn btn-success" href="<?= base_url('shop/payment/'); ?>">
                                     Checkout <span class="glyphicon glyphicon-play"></span>
-                                </button></td>
+                                </a>
+                            </td>
                         </tr>
                     <?php } ?>
 
