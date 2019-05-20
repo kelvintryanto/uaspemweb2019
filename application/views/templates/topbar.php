@@ -85,15 +85,18 @@
                             } //ini tutup foreach
                             ?>
                                 <div class="row">
+                                    <p class="dropdown-item text-center small text-gray-500" href="#"><i class="fas fa-fw fa-shopping-cart"></i> Total <?= number_format($total_price, 0, ',', '.'); ?> </p>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-6 pr-0">
-                                        <button class="dropdown-item text-center small text-gray-500" href="#"><i class="fas fa-fw fa-shopping-cart"></i> View Cart</button>
+                                        <a class="dropdown-item text-center small text-gray-500" href="#"><i class="fas fa-fw fa-shopping-cart"></i> View Cart</a>
                                     </div>
                                     <div class="col-sm-6 pl-0">
-                                        <button class="dropdown-item text-center small text-gray-500" href="#"><i class="far fa-credit-card"></i> Confirm to Payment</button>
+                                        <a class="dropdown-item text-center small text-gray-500" href="#"><i class="far fa-credit-card"></i> Check Out</a>
                                     </div>
                                 </div>
-
                             <?php } ?>
+                            <!-- ini tutup else -->
                         </div>
                     </li>
 
