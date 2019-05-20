@@ -54,7 +54,6 @@ class Shop extends CI_Controller
     public function addtoCart($id)
     {
         $item = $this->db->get_where('item', ['id' => $id])->row_array();
-        $username = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $this->form_validation->set_rules('amount', 'required');
         if ($_POST['amount'] > 0) {
@@ -63,7 +62,9 @@ class Shop extends CI_Controller
                 'qty' => $_POST['amount'],
                 'price' => $item['price'],
                 'name' => $item['name'],
-                'image' => $item['image']
+                'image' => $item['image'],
+                'description' => $item['description'],
+                'stock' => $item['stock']
             ];
             $this->cart->insert($data);
 

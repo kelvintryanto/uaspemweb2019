@@ -9,6 +9,7 @@
   <meta name="author" content="">
 
   <title><?= $title; ?></title>
+  <link rel="shortcut icon" href="https://cdn0.iconfinder.com/data/icons/thin-clothing/24/thin-0986_t-shirt-512.png">
 
   <!-- Custom fonts for this template-->
   <link href="<?= base_url('assets/'); ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
