@@ -19,7 +19,7 @@
                     <img src="<?= base_url('assets/img/item/') . $i['image']; ?>" class="card-img-top">
                     <div class="card-body">
                         <h5 class="card-title mb-0"><?= $i['name']; ?></h5>
-                        <p class="card-text mb-0"><?= "Rp  " . number_format($i['price'], 2, ',', '.'); ?></p>
+                        <p class="card-text mb-0"><?= "Rp  " . number_format($i['price'], 0, ',', '.'); ?></p>
                         <?php if ($i['stock'] > 0) {
                             echo "<p class='card-text mb-0'>Stock : " . $i['stock'];
                         } else {
@@ -28,7 +28,7 @@
                         ?>
                         </p>
                     </div>
-                    <form action="<?= 'shop/buy/' . $i['id']; ?>" method="post">
+                    <form action="<?= 'shop/addtoCart/' . $i['id']; ?>" method="post">
                         <div class="form-group col-12">
                             <input type="number" class="form-control" id="amount" name="amount" placeholder="amount" min="0" max="<?= $i['stock'] ?>">
                             <?= form_error('amount', '<small class="text-danger pl-3">', '</small>') ?>

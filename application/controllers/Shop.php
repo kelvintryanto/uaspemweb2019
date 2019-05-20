@@ -51,31 +51,23 @@ class Shop extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function buy($id)
+    public function addtoCart($id)
     {
         $item = $this->db->get_where('item', ['id' => $id])->row_array();
         $username = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $this->form_validation->set_rules('amount', 'required');
         if ($_POST['amount'] > 0) {
-            $cart_item = $this->session->userdata('cart_item');
-            if (count($cart_item) > 0) {
-                $cart_length = count($cart_item) + 1;
-                // isi data yang dikirim ke session
-                $data = [
-                    $cart_length => array(
-                        'username_id' => $username['id'],
-                        'item_id' => $item['id'],
-                        'is_payment' => 0,
-                        'amount' => $_POST['amount'],
-                        'date_created' => time()
-                    )
-                ];
-                $this->session->set_userdata('cart_item', $data);
-            }
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New Item Added to Cart!</div>');
-            $cart_itemfull = $this->session->userdata('cart_item');
+            $data = [
+                'id' => $item['id'],
+                'qty' => $_POST['amount'],
+                'price' => $item['price'],
+                'name' => $item['name'],
+                'image' => $item['image']
+            ];
+            $this->cart->insert($data);
 
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">new Item Added to Cart!</div>');
             redirect('shop');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Amount Required!</div>');
