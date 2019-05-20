@@ -84,9 +84,8 @@
                                 <?php
                             } //ini tutup foreach
                             ?>
-                                <div class="row">
-                                    <p class="dropdown-item text-center small text-gray-500" href="#"><i class="fas fa-fw fa-shopping-cart"></i> Total <?= number_format($total_price, 0, ',', '.'); ?> </p>
-                                </div>
+                                <p class="dropdown-item text-right small text-gray-500"> Total <?= "Rp " . number_format($total_price, 0, ',', '.'); ?> </p>
+
                                 <div class="row">
                                     <div class="col-sm-6 pr-0">
                                         <a class="dropdown-item text-center small text-gray-500" href="#"><i class="fas fa-fw fa-shopping-cart"></i> View Cart</a>
