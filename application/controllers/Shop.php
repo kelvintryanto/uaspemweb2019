@@ -61,6 +61,7 @@ class Shop extends CI_Controller
             $cart_item = $this->session->userdata('cart_item');
             if (count($cart_item) > 0) {
                 $cart_length = count($cart_item) + 1;
+                // isi data yang dikirim ke session
                 $data = [
                     $cart_length => array(
                         'username_id' => $username['id'],
@@ -70,22 +71,15 @@ class Shop extends CI_Controller
                         'date_created' => time()
                     )
                 ];
-                $cart_itemfull = $this->session->userdata('cart_item');
-                var_dump($cart_itemfull);
-                die;
+                $this->session->set_userdata('cart_item', $data);
             }
-
-
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New Item Added to Cart!</div>');
-            $this->session->set_userdata('cart_item', $data);
+            $cart_itemfull = $this->session->userdata('cart_item');
 
-            // redirect('shop');
+            redirect('shop');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Amount Required!</div>');
             redirect('shop');
         }
     }
-
-
-    
 }
