@@ -11,7 +11,6 @@
 
             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newRoleModal">Add New Role</a>
 
-            <h3>edit dan delete belum ada handlenya</h3>
             <table class="table table-hover">
                 <thead>
                     <tr>

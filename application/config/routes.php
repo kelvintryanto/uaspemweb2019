@@ -64,6 +64,6 @@ $route['shop'] = 'shop/index';
 $route['about'] = 'about/index';
 
 
-$route['default_controller'] = 'pages/view';
+$route['default_controller'] = 'auth/login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

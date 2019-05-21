@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2019 at 02:00 AM
+-- Generation Time: May 21, 2019 at 04:03 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -129,7 +129,9 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
 (7, 'kelvin.tryanto', 'kelvin.tryanto@gmail.com', '68245.jpg', '$2y$10$FMGJjfc71twvZlIj47irNOJUsX1V6Qm6/EHA.9uKNyQLPzdcEC8lG', 1, 1, 1557686744),
 (8, 'dominic', 'dominic.reinaldo@gmail.com', 'default.jpg', '$2y$10$ehMkb2lt.sQx5YK1Cd5ijuiXdsgYrRI5HR1U5zTa2dMkGHvfGTTzW', 2, 1, 1557706079),
-(9, 'dominic.reinaldo', 'dominic.reinaldo11@gmail.com', 'default.jpg', '$2y$10$9KmhnXPzA9272Cye.WdTYO/hQl.EYAdFGImNhZfPTmO2c4Bzp3m1y', 2, 1, 1558014405);
+(9, 'dominic.reinaldo', 'dominic.reinaldo11@gmail.com', 'default.jpg', '$2y$10$9KmhnXPzA9272Cye.WdTYO/hQl.EYAdFGImNhZfPTmO2c4Bzp3m1y', 2, 1, 1558014405),
+(10, 'kelvin_tryanto', 'skyjack345@gmail.com', 'default.jpg', '$2y$10$dQUOWb8R16h9oBaHh71gQ.Dsa2Yav0mPLzSip9VcBmEbWO7Pg8R1G', 2, 0, 1558399277),
+(11, 'admin', 'admin@gmail.com', 'default.jpg', '$2y$10$c2dj/ZVDSKd9PGenhDghde0S6/I9WLnY9fqpcoLNl6Ya3fhvCorRi', 1, 1, 1558404078);
 
 -- --------------------------------------------------------
 
@@ -240,6 +242,14 @@ CREATE TABLE `user_token` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `user_token`
+--
+
+INSERT INTO `user_token` (`id`, `email`, `token`, `date_created`) VALUES
+(1, 'skyjack345@gmail.com', 'WPFcLe1u1+0J1KICOff59T4tWBnYiI2pk/s4LuJuh94=', '1558399277'),
+(2, 'admin@gmail.com', 'EBvLSgQiuySm+Twlj3zuVOYJNWL6sPWdXVWBWpcTjDs=', '1558404078');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -323,7 +333,7 @@ ALTER TABLE `shipper`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user_access`
@@ -353,7 +363,7 @@ ALTER TABLE `user_sub_menu`
 -- AUTO_INCREMENT for table `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
