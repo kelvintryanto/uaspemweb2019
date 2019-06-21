@@ -146,13 +146,52 @@
                                                             $result = json_decode($province, true);
                                                             foreach ($result['rajaongkir']['results'] as $results) {
                                                                 echo '<option value=' . $results['province_id'] . '>'  . $results['province'] . '</option>';
-                                                            }                                                        
+                                                            }
                                                         }
                                                         // harus pakai ajax buat hide and unhide pilihan ketika dipilih
+                                                        // harus digenerate terus menuju ke rajaongkir karena akan bisa update sewaktu-waktu
                                                         ?>
                                                     </select>
                                                 </div>
-                                                
+                                                <div class="form-group">
+                                                    <label for="city">City</label>
+                                                    <select class="form-control" name="city" id="city">
+                                                        <option value="">Select City</option>
+                                                        <?php
+
+                                                        $curl = curl_init();
+
+                                                        curl_setopt_array($curl, array(
+                                                            CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id= " . $_POST['province_id'],
+                                                            CURLOPT_RETURNTRANSFER => true,
+                                                            CURLOPT_ENCODING => "",
+                                                            CURLOPT_MAXREDIRS => 10,
+                                                            CURLOPT_TIMEOUT => 30,
+                                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                                            CURLOPT_CUSTOMREQUEST => "GET",
+                                                            CURLOPT_HTTPHEADER => array(
+                                                                "key: c31c4d2f47fe7e913de7f645a63fa6c9"
+                                                            ),
+                                                        ));
+
+                                                        $city = curl_exec($curl);
+                                                        $err = curl_error($curl);
+
+                                                        curl_close($curl);
+
+                                                        if ($err) {
+                                                            echo "cURL Error #:" . $err;
+                                                        } else {
+                                                            echo $city;
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="cost">Cost</label>
+                                                    <input class="form-control" type="number" disabled>
+                                                </div>
+
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -170,8 +209,6 @@
                     <?php } ?>
                 </tbody>
             </table>
-
-
         </div>
     </div>
 </div>
@@ -180,3 +217,6 @@
 </div>
 <!-- End of Main Content -->
 
+<script>
+    // script untuk combobox pengiriman alamat
+</script>

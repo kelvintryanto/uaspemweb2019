@@ -133,13 +133,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="form-check">
-                                                        <?php if ($u['is_active']) { ?>
-                                                            <input class="form-check-input" type="checkbox" value="$u['is_active']" id="is_active" name="is_active" checked>
-                                                            <label class="form-check-label" for="is_active">Active?</label>
-                                                        <?php } else { ?>
-                                                            <input class="form-check-input" type="checkbox" value="$u['is_active']" id="is_active" name="is_active">
-                                                            <label class="form-check-label" for="is_active">Active?</label>
-                                                        <?php } ?>
+                                                        <input class="form-check-input" type="checkbox" id="is_active" name="is_active" <?= check_activeuser($u['id']) ?> value="1">
+                                                        <label class="form-check-label" for="is_active">Active?</label>
                                                     </div>
                                                     <!-- <label for="is_active">Active</label> -->
                                                     <!-- <input type="number" class="form-control" id="is_active" name="is_active" placeholder="Activate Address" value="<?= $u['is_active']; ?>"> -->

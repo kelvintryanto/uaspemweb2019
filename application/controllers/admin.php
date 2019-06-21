@@ -135,6 +135,7 @@ class Admin extends CI_Controller
 
     public function updateUser($id)
     {
+
         $data = [
             'username' => $this->input->post('username'),
             'email' => $this->input->post('email'),
@@ -229,5 +230,19 @@ class Admin extends CI_Controller
         }
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" style="text-align: center" role="alert">Access Changed!</div>');
+    }
+
+    public function changeActive()
+    {
+        $userId = $this->input->post('userId');
+
+        $result = $this->db->get_where('user', $userId)->row_array();
+        if ($result['is_active'] == 0) {
+            $this->db->set('is_active', 1);
+            $this->db->insert('user');
+        } else {
+            $this->db->set('is_active', 1);
+            $this->db->insert('user');
+        }
     }
 }

@@ -87,7 +87,10 @@
                                                     <input type="text" class="form-control" id="icon" name="icon" value="<?= $dataSubMenu['icon']; ?>">
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" id="active" name="active" value="<?= $dataSubMenu['is_active']; ?>">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="active" name="active" <?= check_activesubmenu($dataSubMenu['id']) ?> value="1">
+                                                        <label class="form-check-label" for="is_active">Active?</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

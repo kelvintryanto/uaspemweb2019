@@ -39,6 +39,33 @@ function check_access($role_id, $menu_id)
     }
 }
 
+// activate user
+function check_activeuser($user_id)
+{
+    $ci = get_instance();
+
+    $ci->db->where('id', $user_id);
+    $result = $ci->db->get('user')->row_array();
+
+    $is_activate = $result['is_active'];
+    if ($is_activate == 1) {
+        return "checked='checked'";
+    }
+}
+
+function check_activesubmenu($submenu_id)
+{
+    $ci = get_instance();
+
+    $ci->db->where('id', $submenu_id);
+    $result = $ci->db->get('user_sub_menu')->row_array();
+
+    $is_activate = $result['is_active'];
+    if ($is_activate == 1) {
+        return "checked='checked'";
+    }
+}
+
 function checkCart()
 {
     $ci = get_instance();

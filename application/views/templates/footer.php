@@ -48,6 +48,7 @@
 <!-- Custom scripts for all pages-->
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 <script src="<?= base_url('assets/'); ?>vendor/js/new-age.min.js"></script>
+<script src="<?= base_url('assets/'); ?>js/script.js"></script>
 
 <script>
     // untuk file upload edit profile
@@ -56,7 +57,7 @@
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
 
-    //untuk role access dan dioper ke admin/changeaccess
+    // untuk role access dan dioper ke admin/changeaccess
     $('.form-check-input').on('click', function() {
         const menuId = $(this).data('menu');
         const roleId = $(this).data('role');
@@ -73,16 +74,16 @@
             }
         });
     });
+
+    $('#is_active').change(function() {
+        this.value = this.checked ? 1 : 0;
+    }).change();
 </script>
 
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#example').DataTable();
 
-        $('.flash_message').slideDown(3000, function() {
-            $(this).delay(500).slideUp(5000);
-        });
     });
 </script>
 
