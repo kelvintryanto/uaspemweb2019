@@ -38,3 +38,31 @@ function check_access($role_id, $menu_id)
         return "checked='checked'";
     }
 }
+
+function checkCart()
+{
+    $ci = get_instance();
+    $data['user'] = $ci->db->get_where('user', ['username' => $ci->session->userdata('username')])->row_array();
+    $data['cart'] = $ci->db->get_where('item_cart', ['username_id' => $data['user']['id']])->result_array();
+    $data['item'] = $ci->db->get('item')->result_array();
+
+    $cart_check = $ci->cart->contents();
+
+    //jika ada data di item_cart
+    if ($data['cart'] > 0) {
+        // jika di cart kosong
+        if (empty($cart_check)) {
+            foreach ($data['cart'] as $cart) {
+                $data = [
+                    'id' => $cart['id'],
+                    'qty' => $cart['qty'],
+                    'price' => $cart['price'],
+                    'name' => $cart['name'],
+                    'image' => $cart['image'],
+                    'description' => $cart['description']
+                ];
+                $ci->cart->insert($data);
+            }
+        }
+    }
+}

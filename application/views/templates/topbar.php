@@ -13,7 +13,7 @@
                 </button>
 
                 <!-- Topbar Search -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
@@ -22,7 +22,7 @@
                             </button>
                         </div>
                     </div>
-                </form>
+                </form> -->
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -71,7 +71,7 @@
                             // tampilkan data belanja
                             foreach ($cart_check as $cart) {
                                 ?>
-                                    <a class="dropdown-item d-flex align-items-center" href="">
+                                    <a class="dropdown-item d-flex align-items-center" href="<?= base_url('shop/cart'); ?>">
                                         <div class="dropdown-list-image mr-3">
                                             <img class="rounded-circle" src="<?= base_url('assets/img/item/') . $cart['image']; ?>" alt="">
                                             <div class="status-indicator bg-success"></div>

@@ -49,6 +49,28 @@ class Menu extends CI_Controller
         redirect('menu');
     }
 
+    public function updateSubMenu($id)
+    {
+        $data = [
+            'title' => $this->input->post('title'),
+            'menu_id' => $this->input->post('menu'),
+            'url' => $this->input->post('url'),
+            'icon' => $this->input->post('icon'),
+            'is_active' => $this->input->post('active')
+        ];
+
+        $this->db->update('user_sub_menu', $data, array('id' => $id));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" style="text-align: center" role="alert">Submenu Updated!</div>');
+        redirect('menu/submenu');
+    }
+
+    public function deleteSubMenu($id)
+    {
+        $this->db->delete('user_sub_menu', array('id' => $id));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" style="text-align: center" role="alert">Submenu Deleted!</div>');
+        redirect('menu/submenu');
+    }
+
     public function submenu()
     {
         $data['title'] = 'bajuUnik.com | Submenu Management';

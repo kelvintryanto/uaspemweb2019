@@ -12,13 +12,17 @@
             Add New Item
         </button>
     </h1>
+
+
     <?php if (validation_errors()) : ?>
         <div class="alert alert-danger" role="alert">
             <?= validation_errors() ?>
         </div>
     <?php endif; ?>
 
-    <?= $this->session->flashdata('message') ?>
+    <div class="flash_message">
+        <?= $this->session->flashdata('message') ?>
+    </div>
 
 
     <table id="example" class="display" style="width:100%">
@@ -44,7 +48,9 @@
                     <td><?= $item['stock']; ?></td>
                     <td><?= $item['username']; ?></td>
                     <td>
+                        <!-- editItem -->
                         <a href="#editItem<?php echo $item['id']; ?>" data-toggle="modal" style="font-size: 1.2em; color: orange;"><i class="fas fa-edit"></i></a>
+                        <!-- deleteItem -->
                         <a href="#deleteItem<?php echo $item['id']; ?>" data-toggle="modal" style="font-size: 1.2em; color: red;">
                             <i class="fas fa-trash"></i>
                         </a>
@@ -95,7 +101,7 @@
                                         <input type="number" class="form-control" id="price" name="price" placeholder="Price" value="<?= $item['price']; ?>">
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Description" value="<?= $item['description']; ?>"></textarea>
+                                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Description"><?= $item['description']; ?></textarea>
                                     </div>
                                 </div>
                                 <div class="modal-footer">

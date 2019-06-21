@@ -12,7 +12,9 @@
                 </div>
             <?php endif; ?>
 
-            <?= $this->session->flashdata('message') ?>
+            <div class="flash_message">
+                <?= $this->session->flashdata('message') ?>
+            </div>
 
             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addNewSubMenu">Add New Sub Menu</a>
 
@@ -46,9 +48,79 @@
                                 }
                                 ?></td>
                             <td style="text-align: center;">
-                                <a href="" data-toggle="modal" data-target="#editMenu" style="font-size: 1.2em; color: orange;"><i class="fas fa-edit"></i></a>
-                                <a href="" data-toggle="modal" data-target="#deleteMenu" style="font-size: 1.2em; color: red;"><i class="fas fa-trash"></i></a>
+                                <a href="#editSubMenu<?= $dataSubMenu['id']; ?>" data-toggle="modal" style="font-size: 1.2em; color: orange;"><i class="fas fa-edit"></i></a>
+                                <a href="#deleteSubMenu<?= $dataSubMenu['id']; ?>" data-toggle="modal" style="font-size: 1.2em; color: red;"><i class="fas fa-trash"></i></a>
                             </td>
+
+                            <!-- Modal Edit SubMenu -->
+                            <div class="modal fade" id="editSubMenu<?= $dataSubMenu['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editMenu" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editMenu">Edit Menu</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="<?= 'updateSubMenu/' . $dataSubMenu['id']; ?>" method="post">
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="title" name="title" value="<?= $dataSubMenu['title']; ?>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <select name="menu" id="menu" class="form-control">
+                                                        <?php foreach ($menu as $m) { ?>
+                                                            <?php if ($dataSubMenu['menu_id'] == $m['id']) { ?>
+                                                                <option selected='selected' value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
+                                                            <?php } else { ?>
+                                                                <option value="<?= $m['id']; ?>"><?= $m['menu']; ?></option>
+                                                            <?php }
+                                                    } ?>
+                                                        <!-- <option value="<?= $dataSubMenu['menu_id']; ?>"><?= $dataSubMenu['menu']; ?></option> -->
+                                                        <!-- <input type="text" class="form-control" id="menu" name="menu" value="<?= $dataSubMenu['menu']; ?>"> -->
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="url" name="url" value="<?= $dataSubMenu['url']; ?>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="icon" name="icon" value="<?= $dataSubMenu['icon']; ?>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="active" name="active" value="<?= $dataSubMenu['is_active']; ?>">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-warning">Edit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal Delete Menu -->
+                            <div class="modal fade" id="deleteSubMenu<?= $dataSubMenu['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteMenu" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteMenu">Delete Menu</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure want to delete this SubMenu <b><?= $dataSubMenu['title']; ?></b> ?</p>
+                                        </div>
+                                        <form action="<?= 'deleteSubMenu/' . $dataSubMenu['id']; ?>" method="post">
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-danger" autofocus>Yes</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </tr>
                         <?php $i++; ?>
                     <?php endforeach; ?>
@@ -103,54 +175,6 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Edit Menu -->
-<div class="modal fade" id="editMenu" tabindex="-1" role="dialog" aria-labelledby="editMenu" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editMenu">Edit Menu</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="<?= 'menu/update/' . $dataMenu['id']; ?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="menu" name="menu" placeholder="Type New Menu Name...">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Delete Menu -->
-<div class="modal fade" id="deleteMenu" tabindex="-1" role="dialog" aria-labelledby="deleteMenu" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteMenu">Delete Menu</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure want to delete menu?</p>
-            </div>
-            <form action="<?= 'menu/delete/' . $dataMenu['id']; ?>" method="post">
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger" autofocus>Yes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                 </div>
             </form>
         </div>

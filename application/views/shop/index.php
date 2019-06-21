@@ -34,7 +34,11 @@
                             <?= form_error('amount', '<small class="text-danger pl-3">', '</small>') ?>
                         </div>
                         <div class="col-12 pb-3 justify-content-end">
-                            <button type="submit" name="addtoCart" class="btn btn-primary col-12" style="font-size: .75rem"><i class="fas fa-shopping-cart"></i> Buy</button>
+                            <?php if ($i['stock'] != 0) { ?>
+                                <button type="submit" name="addtoCart" class="btn btn-primary col-12" style="font-size: .75rem"><i class="fas fa-shopping-cart"></i> Buy</button>
+                            <?php } else { ?>
+                                <button type="button" class="btn btn-primary col-12" style="font-size: .75rem" disabled><i class="fas fa-shopping-cart"></i> Buy</button>
+                            <?php } ?>
                         </div>
                     </form>
                 </div>

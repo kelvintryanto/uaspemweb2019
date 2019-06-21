@@ -30,7 +30,8 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['title'] = 'bajuUnik.com | User List';
 
-        $data['users'] = $this->db->get_where('user', ['role_id' => 2])->result_array();
+        $data['users'] = $this->db->get('user')->result_array();
+        $data['user_role'] = $this->db->get('user_role')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -114,10 +115,10 @@ class Admin extends CI_Controller
     public function update($id)
     {
         $data = [
-                'name' => $this->input->post('name'),
-                'stock' => $this->input->post('stock'),
-                'price' => $this->input->post('price'),
-                'description' => $this->input->post('description')
+            'name' => $this->input->post('name'),
+            'stock' => $this->input->post('stock'),
+            'price' => $this->input->post('price'),
+            'description' => $this->input->post('description')
         ];
 
         $this->db->update('item', $data, array('id' => $id));
@@ -125,8 +126,25 @@ class Admin extends CI_Controller
         redirect('admin/manageitem');
     }
 
-    public function uploadProcess()
-    { }
+    public function deleteUser($id)
+    {
+        $this->db->delete('user', array('id' => $id));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" style="text-align: center" role="alert">User Deleted!</div>');
+        redirect('admin/userlist');
+    }
+
+    public function updateUser($id)
+    {
+        $data = [
+            'username' => $this->input->post('username'),
+            'email' => $this->input->post('email'),
+            'role_id' => $this->input->post('role'),
+            'is_active' => $this->input->post('is_active')
+        ];
+        $this->db->update('user', $data, array('id' => $id));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" style="text-align: center" role="alert">User Updated!</div>');
+        redirect('admin/userlist');
+    }
 
     public function role()
     {
@@ -136,11 +154,41 @@ class Admin extends CI_Controller
 
         $data['role'] = $this->db->get('user_role')->result_array();
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/role', $data);
-        $this->load->view('templates/footer');
+        $this->form_validation->set_rules('role', 'Role', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/role', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = [
+                'role' => $this->input->post('role')
+            ];
+
+            $this->db->insert('user_role', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" style="text-align: center" role="alert">New Role Added!</div>');
+            redirect('admin/role');
+        }
+    }
+
+    public function deleteRole($id)
+    {
+        $this->db->delete('user_role', array('id' => $id));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" style="text-align: center" role="alert">Role Deleted!</div>');
+        redirect('admin/role');
+    }
+
+    public function updateRole($id)
+    {
+        $data = [
+            'role' => $this->input->post('role')
+        ];
+
+        $this->db->update('user_role', $data, array('id' => $id));
+        $this->session->set_flashdata('message', '<div class="alert alert-success" style="text-align: center" role="alert">Role Updated!</div>');
+        redirect('admin/role');
     }
 
     public function roleAccess($role_id)
