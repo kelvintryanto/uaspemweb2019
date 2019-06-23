@@ -16,7 +16,6 @@ class Menu extends CI_Controller
         $data['title'] = 'bajuUnik.com | Menu Management';
         // untuk mengambil data spesifik user
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
         $data['menu'] = $this->db->get('user_menu')->result_array();
 
         $this->form_validation->set_rules('menu', 'Menu', 'required');

@@ -4,6 +4,12 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Cart</h1>
 
+    <?php if (validation_errors()) : ?>
+        <div class="alert alert-danger" role="alert">
+            <?= validation_errors() ?>
+        </div>
+    <?php endif; ?>
+
     <div class="row">
         <div class="col-sm-12">
             <table class="table table-hover">
@@ -27,14 +33,14 @@
                     foreach ($cart_check as $cart) {
                         ?>
                         <tr>
-                            <th><?= $i; ?></th>
+                            <td><?= $i; ?></td>
                             <td style="text-align:center;"><img style="width: 72px;" src="<?= base_url('assets/img/item/') . $cart['image']; ?>" class="card-img-top"></td>
                             <td>
                                 <?= $cart['name']; ?>
                             </td>
                             <td><?= $cart['description']; ?></td>
                             <td width="3%" style="text-align: center">
-                                <input type="number" class="form-control" id="amount" name="amount" min="1" max="" value="<?= $cart['qty']; ?>">
+                                <?= $cart['qty']; ?>
                             </td>
                             <td width="12%" class="text-center"><strong><?= "Rp " . number_format($cart['price'], 0, ',', '.'); ?></strong></td>
                             <td width="12%" class="text-center"><strong><?= "Rp " . number_format($cart['price'] * $cart['qty'], 0, ',', '.'); ?></strong></td>
@@ -75,7 +81,7 @@
                         <tr>
                             <td colspan="4">
                                 <b>
-                                    <p>Estimated Total <?= "Rp " . number_format($this->cart->total(), 0, ',', '.'); ?></p>
+                                    <p>Estimated Total <?= "Rp " . number_format($total_price, 0, ',', '.'); ?></p>
                                 </b>
                             </td>
                             <td colspan="4" align="right">
@@ -97,7 +103,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="<?= base_url('shop/'); ?>" method="post">
+                                        <form action="<?= base_url('shop/cart'); ?>" method="post">
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label for="receiver">Receiver Name</label>
@@ -108,94 +114,40 @@
                                                     <input type="text" class="form-control" id="address" name="address" placeholder="Address...">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="number">Phone Number</label>
-                                                    <input type="text" class="form-control" id="number" name="number" placeholder="Phone Number">
+                                                    <label for="phone">Phone Number</label>
+                                                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone Number">
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="province">Province</label>
-                                                    <select name="province" id="province" class="form-control">
-                                                        <option value="">Select Province</option>
-                                                        <!-- generate province -->
-                                                        <?php
-
-                                                        $curl = curl_init();
-
-                                                        curl_setopt_array($curl, array(
-                                                            CURLOPT_URL => "https://api.rajaongkir.com/starter/province",
-                                                            CURLOPT_RETURNTRANSFER => true,
-                                                            CURLOPT_ENCODING => "",
-                                                            CURLOPT_MAXREDIRS => 10,
-                                                            CURLOPT_TIMEOUT => 30,
-                                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                                                            CURLOPT_CUSTOMREQUEST => "GET",
-                                                            CURLOPT_HTTPHEADER => array(
-                                                                "key: c31c4d2f47fe7e913de7f645a63fa6c9"
-                                                            ),
-                                                        ));
-
-                                                        $province = curl_exec($curl);
-                                                        $err = curl_error($curl);
-
-                                                        curl_close($curl);
-
-                                                        if ($err) {
-                                                            echo "cURL Error #:" . $err;
-                                                        } else {
-                                                            // echo $response;
-                                                            // echo "<br><br>";
-                                                            $result = json_decode($province, true);
-                                                            foreach ($result['rajaongkir']['results'] as $results) {
-                                                                echo '<option value=' . $results['province_id'] . '>'  . $results['province'] . '</option>';
-                                                            }
-                                                        }
-                                                        // harus pakai ajax buat hide and unhide pilihan ketika dipilih
-                                                        // harus digenerate terus menuju ke rajaongkir karena akan bisa update sewaktu-waktu
-                                                        ?>
-                                                    </select>
-                                                </div>
+                                                <!-- <div class="form-group">
+                                                            <label for="province">Province</label>
+                                                            <select name="province" id="provinceSelect" class="form-control">
+                                                            <option value="">Select province</option>
+                                                            <?php foreach ($province as $province) { ?>
+                                                                                                                        <option value="<?= $province['province_id'] ?>"><?= $province['province'] ?></option>
+                                                            <?php } ?>
+                                                            </select>
+                                                            </div> -->
                                                 <div class="form-group">
                                                     <label for="city">City</label>
-                                                    <select class="form-control" name="city" id="city">
+                                                    <select name="city" id="city" class="form-control">
                                                         <option value="">Select City</option>
-                                                        <?php
-
-                                                        $curl = curl_init();
-
-                                                        curl_setopt_array($curl, array(
-                                                            CURLOPT_URL => "https://api.rajaongkir.com/starter/city?id= " . $_POST['province_id'],
-                                                            CURLOPT_RETURNTRANSFER => true,
-                                                            CURLOPT_ENCODING => "",
-                                                            CURLOPT_MAXREDIRS => 10,
-                                                            CURLOPT_TIMEOUT => 30,
-                                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                                                            CURLOPT_CUSTOMREQUEST => "GET",
-                                                            CURLOPT_HTTPHEADER => array(
-                                                                "key: c31c4d2f47fe7e913de7f645a63fa6c9"
-                                                            ),
-                                                        ));
-
-                                                        $city = curl_exec($curl);
-                                                        $err = curl_error($curl);
-
-                                                        curl_close($curl);
-
-                                                        if ($err) {
-                                                            echo "cURL Error #:" . $err;
-                                                        } else {
-                                                            echo $city;
-                                                        }
-                                                        ?>
+                                                        <?php foreach ($city as $cityOps) { ?>
+                                                            <option value="<?= $cityOps['city_id'] ?>"><?= $cityOps['city_name'] ?></option>
+                                                        <?php } ?>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="cost">Cost</label>
-                                                    <input class="form-control" type="number" disabled>
+                                                    <label for="courier">Courier</label>
+                                                    <select name="courier" id="courier" class="form-control">
+                                                        <option value="">Select Courier</option>
+                                                        <option value="jne">JNE</option>
+                                                        <option value="tiki">TIKI</option>
+                                                        <option value="pos">POS</option>
+                                                    </select>
                                                 </div>
-
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                <button type="submit" class="btn btn-primary">Confirm Shipping</button>
                                             </div>
                                         </form>
                                     </div>
@@ -217,6 +169,22 @@
 </div>
 <!-- End of Main Content -->
 
-<script>
-    // script untuk combobox pengiriman alamat
-</script>
+<script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
+<!-- <script>
+    $(document).ready(function() {
+        $('#provinceSelect').on('change', function() {
+            var provinceID = $(this).val();
+            if(provinceID!=''){
+                $.ajax({
+                    url: "fetchCity",
+                    method:"post",
+                    data: {provinceID: provinceID},
+                    dataType:"JSON",
+                    success: function(data){
+                        console.log(data);
+                    }
+                })
+            }
+        });
+    });
+</script> -->

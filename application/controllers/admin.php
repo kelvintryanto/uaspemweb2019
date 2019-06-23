@@ -8,6 +8,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         //mencegah hacking url
+        $this->load->model('order_model','order_model');
         is_logged_in();
     }
 
@@ -16,6 +17,7 @@ class Admin extends CI_Controller
         // untuk mengambil data spesifik user
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['title'] = 'bajuUnik.com | Administrator Dashboard';
+        $data['orderItem'] = $this->order_model->getOrder();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

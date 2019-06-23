@@ -73,19 +73,10 @@
                 document.location.href = "<?= base_url('admin/roleaccess/'); ?>" + roleId;
             }
         });
-    });
-
-    $('#is_active').change(function() {
-        this.value = this.checked ? 1 : 0;
-    }).change();
+    });    
 </script>
 
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready(function() {
-
-    });
-</script>
 
 </body>
 
