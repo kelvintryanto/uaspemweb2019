@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2019 at 04:03 AM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.1.11
+-- Generation Time: Jun 23, 2019 at 07:29 PM
+-- Server version: 10.1.40-MariaDB
+-- PHP Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `uaspemweb2019`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detail_order`
+--
+
+CREATE TABLE `detail_order` (
+  `detailorder_id` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `detail_order`
+--
+
+INSERT INTO `detail_order` (`detailorder_id`, `qty`, `price`, `order_id`, `item_id`) VALUES
+(8, 2, 125000, 19, 59);
 
 -- --------------------------------------------------------
 
@@ -44,11 +65,12 @@ CREATE TABLE `item` (
 
 INSERT INTO `item` (`id`, `name`, `price`, `stock`, `description`, `image`, `username`) VALUES
 (56, 'Harimau', 125000, 3, 'gambar harimau', 'harimau.jpg', 'kelvin.tryanto'),
-(59, 'Elang', 125000, 3, 'Kepala Elang Putih kecil', 'elang.jpg', 'kelvin.tryanto'),
-(64, 'kucing', 125000, 3, 'bergambar kucing', 'kucing.jpg', 'kelvin.tryanto'),
+(59, 'Elang', 125000, 10, 'kepala elang putih\r\n', 'elang.jpg', 'kelvin.tryanto'),
+(64, 'kucing', 125000, 3, 'kepala kucing bergambar meong\r\n', 'kucing.jpg', 'kelvin.tryanto'),
 (65, 'Gajah', 162000, 12, 'gambar gajah\r\n', 'gajah.jpg', 'kelvin.tryanto'),
 (66, 'Detak Jantung', 124000, 4, 'detak jantung yang kencang berdebar tanpa henti', 'detakjantung.jpg', 'kelvin.tryanto'),
-(67, 'Elang Putih', 156000, 5, 'bergambar elang putih yang kuat dan hebat', 'elangputih.jpg', 'kelvin.tryanto');
+(67, 'Elang Putih', 156000, 7, 'kepala elang putih besar\r\n', 'elangputih.jpg', 'kelvin.tryanto'),
+(70, 'Srigala', 125000, 4, 'srigala mengaum di malam hari', 'srigala.jpg', 'kelvin.tryanto');
 
 -- --------------------------------------------------------
 
@@ -58,20 +80,14 @@ INSERT INTO `item` (`id`, `name`, `price`, `stock`, `description`, `image`, `use
 
 CREATE TABLE `item_cart` (
   `id` int(11) NOT NULL,
-  `username_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `is_payment` int(11) NOT NULL,
-  `is_delivered` int(11) NOT NULL,
-  `date_created` int(11) NOT NULL
+  `username_id` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `image` varchar(256) NOT NULL,
+  `description` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `item_cart`
---
-
-INSERT INTO `item_cart` (`id`, `username_id`, `item_id`, `amount`, `is_payment`, `is_delivered`, `date_created`) VALUES
-(49, 7, 56, 1, 0, 0, 1558293629);
 
 -- --------------------------------------------------------
 
@@ -81,29 +97,44 @@ INSERT INTO `item_cart` (`id`, `username_id`, `item_id`, `amount`, `is_payment`,
 
 CREATE TABLE `item_ship` (
   `id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `ship_id` int(11) NOT NULL,
-  `no_resi` varchar(128) NOT NULL
+  `order_id` int(11) NOT NULL,
+  `receiver` varchar(256) NOT NULL,
+  `address` varchar(256) NOT NULL,
+  `phone` int(11) NOT NULL,
+  `city` varchar(256) NOT NULL,
+  `courier` varchar(256) DEFAULT NULL,
+  `ship_price` int(11) DEFAULT NULL,
+  `no_resi` varchar(128) DEFAULT NULL,
+  `shipped` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `item_ship`
+--
+
+INSERT INTO `item_ship` (`id`, `order_id`, `receiver`, `address`, `phone`, `city`, `courier`, `ship_price`, `no_resi`, `shipped`) VALUES
+(4, 19, 'Kelvin Tryanto', 'Jalan Kodiklat TNI no. 87', 2147483647, '457', 'jne', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shipper`
+-- Table structure for table `orderitem`
 --
 
-CREATE TABLE `shipper` (
-  `id` int(11) NOT NULL,
-  `shipper_name` varchar(128) NOT NULL
+CREATE TABLE `orderitem` (
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `date_order` varchar(256) NOT NULL,
+  `price_total` int(11) NOT NULL,
+  `payment_status` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `shipper`
+-- Dumping data for table `orderitem`
 --
 
-INSERT INTO `shipper` (`id`, `shipper_name`) VALUES
-(1, 'jne'),
-(2, 'wahana');
+INSERT INTO `orderitem` (`order_id`, `user_id`, `date_order`, `price_total`, `payment_status`) VALUES
+(19, 7, '1561305260', 250000, NULL);
 
 -- --------------------------------------------------------
 
@@ -127,11 +158,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `image`, `password`, `role_id`, `is_active`, `date_created`) VALUES
-(7, 'kelvin.tryanto', 'kelvin.tryanto@gmail.com', '68245.jpg', '$2y$10$FMGJjfc71twvZlIj47irNOJUsX1V6Qm6/EHA.9uKNyQLPzdcEC8lG', 1, 1, 1557686744),
+(7, 'kelvin.tryanto', 'kelvin.tryanto@gmail.com', 'harimau.jpg', '$2y$10$FMGJjfc71twvZlIj47irNOJUsX1V6Qm6/EHA.9uKNyQLPzdcEC8lG', 1, 1, 1557686744),
 (8, 'dominic', 'dominic.reinaldo@gmail.com', 'default.jpg', '$2y$10$ehMkb2lt.sQx5YK1Cd5ijuiXdsgYrRI5HR1U5zTa2dMkGHvfGTTzW', 2, 1, 1557706079),
 (9, 'dominic.reinaldo', 'dominic.reinaldo11@gmail.com', 'default.jpg', '$2y$10$9KmhnXPzA9272Cye.WdTYO/hQl.EYAdFGImNhZfPTmO2c4Bzp3m1y', 2, 1, 1558014405),
-(10, 'kelvin_tryanto', 'skyjack345@gmail.com', 'default.jpg', '$2y$10$dQUOWb8R16h9oBaHh71gQ.Dsa2Yav0mPLzSip9VcBmEbWO7Pg8R1G', 2, 0, 1558399277),
-(11, 'admin', 'admin@gmail.com', 'default.jpg', '$2y$10$c2dj/ZVDSKd9PGenhDghde0S6/I9WLnY9fqpcoLNl6Ya3fhvCorRi', 1, 1, 1558404078);
+(11, 'admin', 'admin@gmail.com', 'default.jpg', '$2y$10$c2dj/ZVDSKd9PGenhDghde0S6/I9WLnY9fqpcoLNl6Ya3fhvCorRi', 1, 1, 1558404078),
+(12, 'user', 'kt_bluesky93@yahoo.com', 'default.jpg', '$2y$10$LNNNlp4oLNeXd2mgPsXKte3YgSOZCtYx3./eJn6YODuwiKTh.hMfS', 2, 1, 1560834120);
 
 -- --------------------------------------------------------
 
@@ -153,8 +184,12 @@ INSERT INTO `user_access` (`id`, `role_id`, `menu_id`) VALUES
 (1, 1, 1),
 (12, 2, 3),
 (36, 2, 2),
-(41, 1, 2),
-(42, 1, 4);
+(42, 1, 4),
+(43, 1, 3),
+(45, 1, 5),
+(46, 1, 6),
+(47, 3, 2),
+(51, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -208,7 +243,7 @@ CREATE TABLE `user_sub_menu` (
   `title` varchar(128) NOT NULL,
   `url` varchar(128) NOT NULL,
   `icon` varchar(128) NOT NULL,
-  `is_active` int(1) NOT NULL
+  `is_active` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -219,14 +254,16 @@ INSERT INTO `user_sub_menu` (`id`, `menu_id`, `title`, `url`, `icon`, `is_active
 (1, 1, 'Dashboard', 'admin', 'fas fa-fw fa-tachometer-alt', 1),
 (2, 1, 'Role', 'admin/role', 'fas fa-fw fa-user-tag', 1),
 (3, 1, 'User List', 'admin/userlist', 'fas fa-fw fa-users', 1),
-(5, 1, 'Manage Item', 'admin/manageitem', 'fas fa-fw fa-database', 1),
-(6, 2, 'Item Shop', 'shop', 'fas fa-fw fa-home', 1),
-(8, 2, 'Cart', 'shop/cart', 'fas fa-fw fa-shopping-cart', 1),
-(9, 3, 'My Profile', 'user', 'fas fa-fw fa-user', 1),
-(10, 3, 'Edit Profile', 'user/editprofile', 'fas fa-fw fa-cogs', 1),
-(11, 3, 'Change Password', 'user/changepassword', 'fas fa-fw fa-key', 1),
-(12, 4, 'Menu Management', 'menu', 'fas fa-fw fa-bars', 1),
-(13, 4, 'Submenu Management', 'menu/submenu', 'fas fa-fw fa-align-left', 1);
+(4, 1, 'Manage Item', 'admin/manageitem', 'fas fa-fw fa-database', 1),
+(5, 2, 'Item Shop', 'shop', 'fas fa-fw fa-home', 1),
+(6, 2, 'Cart', 'shop/cart', 'fas fa-fw fa-shopping-cart', 1),
+(7, 3, 'My Profile', 'user', 'fas fa-fw fa-user', 1),
+(8, 3, 'Edit Profile', 'user/editprofile', 'fas fa-fw fa-cogs', 1),
+(9, 3, 'Change Password', 'user/changepassword', 'fas fa-fw fa-key', 1),
+(10, 4, 'Menu Management', 'menu', 'fas fa-fw fa-bars', 1),
+(11, 4, 'Submenu Management', 'menu/submenu', 'fas fa-fw fa-align-left', 1),
+(13, 2, 'Payment', 'shop/payment', 'fas fa-money-check-alt', 1),
+(14, 2, 'History', 'shop/history', 'fas fa-history', 1);
 
 -- --------------------------------------------------------
 
@@ -254,6 +291,12 @@ INSERT INTO `user_token` (`id`, `email`, `token`, `date_created`) VALUES
 --
 
 --
+-- Indexes for table `detail_order`
+--
+ALTER TABLE `detail_order`
+  ADD PRIMARY KEY (`detailorder_id`);
+
+--
 -- Indexes for table `item`
 --
 ALTER TABLE `item`
@@ -266,10 +309,16 @@ ALTER TABLE `item_cart`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `shipper`
+-- Indexes for table `item_ship`
 --
-ALTER TABLE `shipper`
+ALTER TABLE `item_ship`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orderitem`
+--
+ALTER TABLE `orderitem`
+  ADD PRIMARY KEY (`order_id`);
 
 --
 -- Indexes for table `user`
@@ -312,40 +361,52 @@ ALTER TABLE `user_token`
 --
 
 --
+-- AUTO_INCREMENT for table `detail_order`
+--
+ALTER TABLE `detail_order`
+  MODIFY `detailorder_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `item_cart`
 --
 ALTER TABLE `item_cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
--- AUTO_INCREMENT for table `shipper`
+-- AUTO_INCREMENT for table `item_ship`
 --
-ALTER TABLE `shipper`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `item_ship`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `orderitem`
+--
+ALTER TABLE `orderitem`
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user_access`
 --
 ALTER TABLE `user_access`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `user_menu`
 --
 ALTER TABLE `user_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_role`
