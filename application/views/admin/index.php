@@ -111,7 +111,32 @@
         <div class="col-xl-12 col-md-6 mb-4">
             <h3>Payment and Shipment Approval</h3>
             <table id="example" class="display">
-                
+                <?php $i = 1 ?>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>User</th>
+                        <th>Struk ID</th>
+                        <th>Payment</th>
+                        <th>Shipment</th>
+                        <th>Transfer Amount</th>
+                    </tr>
+                </thead>
+                <?php foreach ($orderItem as $approval) { ?>
+                    <tr>
+                        <td scope="row"><?= $i; ?></td>
+                        <td><?= $approval['username']; ?></td>
+                        <td><?= $approval['order_id']; ?></td>
+                        <td style="text-align: center;">
+                            <input type="checkbox" id="is_payment" name="is_payment"  value="1">
+                        </td>
+                        <td style="text-align: center;">
+                            <input type="checkbox" id="is_shipped" name="is_shipped" value="1">
+                        </td>
+                        <td><?= $approval['price_total'] + $approval['ship_price']; ?></td>
+                    </tr>
+                    <?php $i++; ?>
+                <?php } ?>
             </table>
         </div>
     </div>

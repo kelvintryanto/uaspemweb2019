@@ -23,7 +23,7 @@
                     <?php $i = 1 ?>
                     <?php foreach ($role as $dataRole) : ?>
                         <tr>
-                            <th scope="row"><?= $i; ?></th>
+                            <td scope="row"><?= $i; ?></td>
                             <td><?= $dataRole['role']; ?></td>
                             <td>
                                 <a title="Managing Access to this role" href="<?= base_url('admin/roleAccess/') . $dataRole['id']; ?>" style="font-size: 1.2em; color: green;"><i class="fab fa-accessible-icon"></i></i></a>

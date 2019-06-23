@@ -8,6 +8,7 @@ class Shop extends CI_Controller
     {
         parent::__construct();
         //mencegah hacking url
+        $this->load->model('order_model','order_model');
         is_logged_in();
     }
 

@@ -17,7 +17,23 @@ class Order_Model extends CI_Model
         $query = "SELECT ";
     }
 
-    public function getOrderPaymentApproval(){
-        $query = "SELECT * from `orderitem` where paymentstatus"
+    public function getOrderPaymentApproval()
+    {
+        $query = "SELECT * FROM `orderitem` as `oi`, `user` as `u`,`item_ship` as `s`
+                    WHERE
+                    oi.user_id = u.id
+                    AND
+                    oi.order_id = s.order_id
+                    AND
+                    payment_status is NULL
+                    OR   
+                    oi.user_id = u.id
+                    AND
+                    oi.order_id = s.order_id
+                    AND                
+                    shipped is NULL";
+
+        $result = $this->db->query($query)->result_array();
+        return $result;
     }
 }
